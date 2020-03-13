@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @Author: gx
  * @Date: Created in 2020/3/13 11:35
- * @Description: 学习资源controller -- thymeleaf 测试
+ * @Description: 学习资源controller -- thymeleaf和Jsp 测试
  */
 @RestController
 public class LearnResourceController {

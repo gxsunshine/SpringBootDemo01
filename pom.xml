@@ -5,6 +5,8 @@
     <groupId>com.gx</groupId>
     <artifactId>demo01</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <!-- 指定打war包，默认是打jar包 -->
+    <packaging>war</packaging>
     <name>demo01</name>
     <description>Demo project for Spring Boot</description>
 
@@ -37,9 +39,22 @@
 
 
         <!-- thymeleaf 依赖 -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>-->
+
+        <!--jsp页面使用jstl标签-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+
+        <!--用于编译jsp-->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Spring-boot-devtools 实现热部署 -->
@@ -49,6 +64,14 @@
             <!-- 此依赖可选，如果不需要某项功能，可以不引用这个包。 详细参考：https://segmentfault.com/a/1190000019266080?utm_source=tag-newest -->
             <optional>true</optional>
         </dependency>
+
+        <!-- 内嵌Tomcat依赖，Web中已经有了该依赖。为了防止打成war跟外置的Tomcat冲突，可以使用provided配置 -->
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            &lt;!&ndash; compile(默认):编译、测试、运行三种classpath依赖范围都有效；test: 测试范围内有效；provided:表示编译和测试有效，运行时无效 &ndash;&gt;
+            <scope>provided</scope>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -65,6 +88,8 @@
 
     <!-- Spring Boot Maven插件 -->
     <build>
+        <!-- 指定打成war包的名称 -->
+        <finalName>SpringBootDemo01</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
