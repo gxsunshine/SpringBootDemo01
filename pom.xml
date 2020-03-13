@@ -29,9 +29,19 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Spring Boot 配置@ConfigurationProperties注解需要的依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+        <!-- Spring-boot-devtools 实现热部署 -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <!-- 此依赖可选，如果不需要某项功能，可以不引用这个包。 详细参考：https://segmentfault.com/a/1190000019266080?utm_source=tag-newest -->
+            <optional>true</optional>
         </dependency>
 
         <dependency>

@@ -14,6 +14,6 @@ public class HelloController {
 
     @RequestMapping("hello.do")
     public String test(){
-        return "hello";
+        return "hello12345";
     }
 }
