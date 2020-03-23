@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration  scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>logback</contextName>
+    <!-- 指定日志文件路径 -->
+    <property name="log.path" value="E://temp" />
+    <!--输出到控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+             <level>ERROR</level>
+         </filter>-->
+        <!-- <encoder>表示对日志进行编码 -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--输出到文件-->
+    <!-- RollingFileAppender 用于切分日志文件 -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 把每一天日志归档到一个文件中 -->
+            <fileNamePattern>${log.path}/logback.%d{yyyy-MM-dd HH-mm-ss}.log</fileNamePattern>
+            <!-- 表示只保留最近30天的数据 -->
+            <maxHistory>30</maxHistory>
+            <!-- 设置日志文件的上限。到了这个值，就会自动删除旧的日志 -->
+            <totalSizeCap>1MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- root节点是必选节点，用来指定最基础的日志输出级别，只有一个level属性 -->
+    <root level="info">
+        <appender-ref ref="console" />
+        <appender-ref ref="file" />
+    </root>
+
+    <!-- logback为java中的包 -->
+    <!-- 没有指定level,继承上级root节点的日志级别INFO。additivity默认为true。将此logger打印的信息向上传递 -->
+<!--    <logger name="com.gx.demo01.controller"/>-->
+    <!--logback.LogbackDemo：类的全路径 -->
+    <!-- addtivity:是否向上级logger传递打印信息。默认是true。
+         1，这里是false，所以只会该logger只会在控制台打印一次WARN级别的日志。
+         2，如果改成true。那么则会继承root节点，在控制台和文件中都再打印一次日志 -->
+<!--    <logger name="com.gx.demo01.controller.LogController" level="WARN" additivity="false">-->
+<!--        <appender-ref ref="console"/>-->
+<!--    </logger>-->
+
+
+    <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
+    <springProfile name="test,dev">
+        <logger name="com.gx.demo01.controller" level="info" />
+    </springProfile>
+    <!-- 生产环境. -->
+    <springProfile name="prod">
+        <logger name="com.gx.demo01.controller" level="ERROR" />
+    </springProfile>
+</configuration>
+
+<!-- 详细参考：http://tengj.top/2017/04/05/springboot7/ -->

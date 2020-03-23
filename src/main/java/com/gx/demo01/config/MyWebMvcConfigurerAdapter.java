@@ -49,7 +49,7 @@ public class MyWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         // addPathPatterns 用于添加拦截规则
         // excludePathPatterns 排除指定拦截路径
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/toLogin.do","/login.do");
+//        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/toLogin.do","/login.do");
         super.addInterceptors(registry);
     }
 }
