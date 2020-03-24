@@ -1,12 +1,20 @@
 package com.gx.demo01.controller;
 
 import com.gx.demo01.model.LearnResource;
+import com.gx.demo01.service.LearnService;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: gx
@@ -15,6 +23,9 @@ import java.util.List;
  */
 @RestController
 public class LearnResourceController {
+
+    @Autowired
+    private LearnService learnService;
 
     @RequestMapping("learnList.do")
     public ModelAndView learnReasourceList(){
@@ -44,5 +55,68 @@ public class LearnResourceController {
         modelAndView.setViewName("/learnResourceList");
         modelAndView.addObject("learnList", learnList);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/queryLeanList.do",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    public List<LearnResource> queryLearnList(HttpServletRequest request , HttpServletResponse response){
+        String author = request.getParameter("author");
+        String title = request.getParameter("title");
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("author", author);
+        params.put("title", title);
+        List<LearnResource> learnList=learnService.querylearnResourceList(params);
+        return learnList;
+    }
+    /**
+     * 新添教程
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/add.do",method = RequestMethod.POST)
+    public String addLearn(HttpServletRequest request , HttpServletResponse response){
+        String author = request.getParameter("author");
+        String title = request.getParameter("title");
+        String url = request.getParameter("url");
+
+        LearnResource learnResource = new LearnResource();
+        learnResource.setAuthor(author);
+        learnResource.setTitle(title);
+        learnResource.setUrl(url);
+        int index=learnService.add(learnResource);
+        return "结果="+index;
+
+    }
+    /**
+     * 修改教程
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value = "/update.do",method = RequestMethod.POST)
+    public String updateLearn(HttpServletRequest request , HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("id"));
+        LearnResource learnResource=learnService.querylearnResourceById(id);
+        String author = request.getParameter("author");
+        String title = request.getParameter("title");
+        String url = request.getParameter("url");
+        learnResource.setAuthor(author);
+        learnResource.setTitle(title);
+        learnResource.setUrl(url);
+        int index=learnService.update(learnResource);
+        return "修改结果="+index;
+
+    }
+    /**
+     * 删除教程
+     * @param request
+     * @param response
+     */
+    @RequestMapping(value="/delete.do",method = RequestMethod.POST)
+    public String deleteUser(HttpServletRequest request ,HttpServletResponse response){
+        String ids = request.getParameter("ids");
+        System.out.println("ids==="+ids);
+        //删除操作
+        int index = learnService.deleteByIds(ids);
+        return "删除结果"+index;
+
     }
 }

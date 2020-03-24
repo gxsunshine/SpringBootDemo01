@@ -84,6 +84,29 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- spring-boot-starter-jdbc依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- spring-boot-starter-jdbc 默认使用tomcat-jdbc数据源，本项目使用阿里巴巴的数据池管理 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.19</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
     </dependencies>
 
     <!-- Spring Boot Maven插件 -->

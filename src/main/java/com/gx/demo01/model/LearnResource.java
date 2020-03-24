@@ -7,14 +7,26 @@ package com.gx.demo01.model;
  */
 public class LearnResource {
 
+    private int id;
     private String author;
     private String title;
     private String url;
+
+    public LearnResource() {
+    }
 
     public LearnResource(String author, String title, String url) {
         this.author = author;
         this.title = title;
         this.url = url;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAuthor() {
@@ -43,8 +55,9 @@ public class LearnResource {
 
     @Override
     public String toString() {
-        return "LearnResouceController{" +
-                "author='" + author + '\'' +
+        return "LearnResource{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
                 ", title='" + title + '\'' +
                 ", url='" + url + '\'' +
                 '}';
