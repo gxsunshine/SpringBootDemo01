@@ -101,6 +101,7 @@ public class LearnResourceController {
         learnResource.setAuthor(author);
         learnResource.setTitle(title);
         learnResource.setUrl(url);
+//        learnResource.setId(id);
         int index=learnService.update(learnResource);
         return "修改结果="+index;
 
@@ -115,7 +116,8 @@ public class LearnResourceController {
         String ids = request.getParameter("ids");
         System.out.println("ids==="+ids);
         //删除操作
-        int index = learnService.deleteByIds(ids);
+        String[] idsArray = ids.split(",");
+        int index = learnService.deleteByIds(idsArray);
         return "删除结果"+index;
 
     }
